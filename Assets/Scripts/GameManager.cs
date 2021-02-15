@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
 
 						Text componenteDaLetraI = GameObject.Find( "letra" + (i + 1) ).GetComponent<Text>();
 						componenteDaLetraI.text = letraTeclada.ToString();
+
+						verificaSePalavraDescoberta();
 					}
 				}
 			}
@@ -122,5 +124,21 @@ public class GameManager : MonoBehaviour
 	{
 		Text componenteScore = GameObject.Find( "scoreUI" ).GetComponent<Text>();
 		componenteScore.text = "Score: " + score;
+	}
+
+	void verificaSePalavraDescoberta()
+	{
+		bool condicao = true;
+
+		for ( int i = 0; condicao && i < tamanhoPalavraOculta; i++ )
+		{
+			condicao = condicao && letrasDescobertas[i];
+		}
+
+		if ( condicao )
+		{
+			PlayerPrefs.SetString( "ultimaPalavraOculta", palavraOculta );
+			SceneManager.LoadScene( "Lab1_salvo" );
+		}
 	}
 }
