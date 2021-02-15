@@ -40,9 +40,9 @@ public class GameManager : MonoBehaviour
 
 			Vector3 novaPosicao = new Vector3( x, y, z );
 
-			GameObject l = Instantiate( letra, novaPosicao, Quaternion.identity );
-			l.name = "letra" + (i + 1);
-			l.transform.SetParent( GameObject.Find( "Canvas" ).transform );
+			GameObject letterObject = Instantiate( letra, novaPosicao, Quaternion.identity );
+			letterObject.name = "letra" + (i + 1);
+			letterObject.transform.SetParent( GameObject.Find( "Canvas" ).transform );
 		}
 	}
 
