@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Lab1_start.unity
+    guid: 529d306b459fa9447b3508e0d73abd29
+  - enabled: 1
     path: Assets/Scenes/Lab1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Lab1_forca.unity
-    guid: d6cf990adf1bf70439ace825feeb2d01
   - enabled: 1
     path: Assets/Scenes/Lab1_salvo.unity
     guid: 8d170f1079d0afa4aacf7a7ccdbe0195
   - enabled: 1
-    path: Assets/Scenes/Lab1_start.unity
-    guid: 529d306b459fa9447b3508e0d73abd29
+    path: Assets/Scenes/Lab1_forca.unity
+    guid: d6cf990adf1bf70439ace825feeb2d01
   m_configObjects: {}

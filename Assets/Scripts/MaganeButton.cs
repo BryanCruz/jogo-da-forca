@@ -28,4 +28,10 @@ public class MaganeButton : MonoBehaviour
 		// volta para a tela inicial
 		SceneManager.LoadScene( "Lab1_start" );
 	}
+
+	public void SairDoJogo()
+	{
+		// sai do jogo
+		Application.Quit();
+	}
 }
