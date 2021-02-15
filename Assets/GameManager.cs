@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
 	public GameObject letra;                         // prefab da letra no Game
 	public GameObject centroDaTela;                  // objeto que indica o centro da tela
 
-	private string palavraOculta = "";               // palavra oculta a ser descoberta 
-	private int tamanhoPalavraOculta = 0;            // tamanho da palavra oculta
+	private readonly string[] palavrasOcultas = new string[] { "carro", "elefante", "futebol" }; // array de palavras ocultas
+	private string palavraOculta;               // palavra oculta a ser descoberta
+
+	private int tamanhoPalavraOculta;            // tamanho da palavra oculta
 	private char[] letrasOcultas;                    // letras da palavra oculta
 	private bool[] letrasDescobertas;                // indicador de quais letras foram descobertas
 
@@ -46,7 +48,9 @@ public class GameManager : MonoBehaviour
 
 	void InitGame()
 	{
-		palavraOculta = "Elefante";                            // definição da palavra a ser descoberta
+		int numeroAleatorio = Random.Range( 0, palavrasOcultas.Length );
+		palavraOculta = palavrasOcultas[numeroAleatorio];      // definição da palavra a ser descoberta
+
 		tamanhoPalavraOculta = palavraOculta.Length;           // número de letras da palavra
 		palavraOculta = palavraOculta.ToUpper();               // transforma a palavra para maiúscula
 
