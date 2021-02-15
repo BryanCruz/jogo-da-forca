@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	private char[] letrasOcultas;                    // letras da palavra oculta
 	private bool[] letrasDescobertas;                // indicador de quais letras foram descobertas
 
+	private int score;
 	private int numTentativas;
 	private int maxNumtentativas;
 
@@ -24,10 +25,12 @@ public class GameManager : MonoBehaviour
 		centroDaTela = GameObject.Find( "centroDaTela" );
 		numTentativas = 0;
 		maxNumtentativas = 10;
+		score = PlayerPrefs.GetInt( "score" );
 
 		InitGame();
 		InitLetras();
 		UpdateNumTentativas();
+		UpdateScore();
 	}
 
 	// Update is called once per frame
@@ -86,6 +89,11 @@ public class GameManager : MonoBehaviour
 					{
 						letrasDescobertas[i] = true;
 
+						score = PlayerPrefs.GetInt( "score" );
+						score += 1;
+						PlayerPrefs.SetInt( "score", score );
+						UpdateScore();
+
 						Text componenteDaLetraI = GameObject.Find( "letra" + (i + 1) ).GetComponent<Text>();
 						componenteDaLetraI.text = letraTeclada.ToString();
 					}
@@ -98,5 +106,11 @@ public class GameManager : MonoBehaviour
 	{
 		Text componenteNumTentativas = GameObject.Find( "numTentativas" ).GetComponent<Text>();
 		componenteNumTentativas.text = numTentativas + " | " + maxNumtentativas;
+	}
+
+	void UpdateScore()
+	{
+		Text componenteScore = GameObject.Find( "scoreUI" ).GetComponent<Text>();
+		componenteScore.text = "Score: " + score;
 	}
 }
