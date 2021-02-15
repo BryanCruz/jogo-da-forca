@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 	public GameObject letra;                         // prefab da letra no Game
 	public GameObject centroDaTela;                  // objeto que indica o centro da tela
 
-	private readonly string[] palavrasOcultas = new string[] { "carro", "elefante", "futebol" }; // array de palavras ocultas
+	//	private readonly string[] palavrasOcultas = new string[] { "carro", "elefante", "futebol" }; // array de palavras ocultas
 	private string palavraOculta;               // palavra oculta a ser descoberta
 
 	private int tamanhoPalavraOculta;            // tamanho da palavra oculta
@@ -59,8 +59,7 @@ public class GameManager : MonoBehaviour
 
 	void InitGame()
 	{
-		int numeroAleatorio = Random.Range( 0, palavrasOcultas.Length );
-		palavraOculta = palavrasOcultas[numeroAleatorio];      // definição da palavra a ser descoberta
+		palavraOculta = pegaPalavraDoArquivo();      // definição da palavra a ser descoberta
 
 		tamanhoPalavraOculta = palavraOculta.Length;           // número de letras da palavra
 		palavraOculta = palavraOculta.ToUpper();               // transforma a palavra para maiúscula
@@ -140,5 +139,16 @@ public class GameManager : MonoBehaviour
 			PlayerPrefs.SetString( "ultimaPalavraOculta", palavraOculta );
 			SceneManager.LoadScene( "Lab1_salvo" );
 		}
+	}
+
+	string pegaPalavraDoArquivo()
+	{
+		TextAsset textAsset = (TextAsset)Resources.Load( "palavras", typeof( TextAsset ) );
+		string fileContent = textAsset.text;
+
+		string[] palavras = fileContent.Split( ' ' );
+		int nPalavraAleatoria = Random.Range( 0, palavras.Length );
+
+		return palavras[nPalavraAleatoria];
 	}
 }
