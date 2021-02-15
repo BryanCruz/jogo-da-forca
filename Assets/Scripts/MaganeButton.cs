@@ -19,11 +19,13 @@ public class MaganeButton : MonoBehaviour
 
 	public void StartMundoGame()
 	{
+		// reinicia o jogo
 		SceneManager.LoadScene( "Lab1" );
 	}
 
 	public void VoltaProInicioButton()
 	{
+		// volta para a tela inicial
 		SceneManager.LoadScene( "Lab1_start" );
 	}
 }

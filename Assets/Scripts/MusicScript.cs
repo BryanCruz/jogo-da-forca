@@ -9,6 +9,7 @@ public class MusicScript : MonoBehaviour
 	// Start is called before the first frame update
 	void Awake()
 	{
+		// mantém o objeto de música entre as cenas e previne ele de ser reinstanciado
 		if ( instance != null )
 		{
 			Destroy( gameObject );

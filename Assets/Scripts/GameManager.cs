@@ -10,15 +10,15 @@ public class GameManager : MonoBehaviour
 	public GameObject centroDaTela;                  // objeto que indica o centro da tela
 
 	//	private readonly string[] palavrasOcultas = new string[] { "carro", "elefante", "futebol" }; // array de palavras ocultas
-	private string palavraOculta;               // palavra oculta a ser descoberta
+	private string palavraOculta;                    // palavra oculta a ser descoberta
 
-	private int tamanhoPalavraOculta;            // tamanho da palavra oculta
+	private int tamanhoPalavraOculta;                // tamanho da palavra oculta
 	private char[] letrasOcultas;                    // letras da palavra oculta
 	private bool[] letrasDescobertas;                // indicador de quais letras foram descobertas
 
-	private int score;
-	private int numTentativas;
-	private int maxNumtentativas;
+	private int score;                               // score do jogo
+	private int numTentativas;                       // número de tentativas gastas
+	private int maxNumtentativas;                    // número máximo de tentativas
 
 	// Start is called before the first frame update
 	void Start()
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
 	void InitLetras()
 	{
+		// inicia as componentes das letras da palavra na tela com interrogação
 		int numLetras = tamanhoPalavraOculta;
 		for ( int i = 0; i < numLetras; i++ )
 		{
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
 
 	void InitGame()
 	{
+		// inicia as variáveis do jogo
 		palavraOculta = pegaPalavraDoArquivo();      // definição da palavra a ser descoberta
 
 		tamanhoPalavraOculta = palavraOculta.Length;           // número de letras da palavra
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
 	// e as exibe se o usuário acertar
 	void CheckTeclado()
 	{
+		// checa se o usuário digitou alguma coisa
 		if ( Input.anyKeyDown )
 		{
 			char letraTeclada = Input.inputString.ToCharArray()[0];
@@ -79,10 +82,14 @@ public class GameManager : MonoBehaviour
 
 			if ( letraTecladaComoInt >= 97 && letraTecladaComoInt <= 122 )
 			{
+				// se digitou uma letra, pega a letra digitada e atualiza as variáveis do jogo
+				// com as regras do Jogo da Forca
+
 				numTentativas++;
 				UpdateNumTentativas();
 				if ( numTentativas > maxNumtentativas )
 				{
+					// se excedeu o número máximo de tentativas, abre a tela de Game Over
 					SceneManager.LoadScene( "Lab1_forca" );
 				}
 
@@ -91,6 +98,7 @@ public class GameManager : MonoBehaviour
 				{
 					if ( !letrasDescobertas[i] && letrasOcultas[i] == letraTeclada )
 					{
+						// se acertou a letra digitada, aumenta o score e verifíca se a palavra foi descoberta
 						letrasDescobertas[i] = true;
 
 						score = PlayerPrefs.GetInt( "score" );
@@ -110,23 +118,27 @@ public class GameManager : MonoBehaviour
 
 	void UpdateNumTentativas()
 	{
+		// atualiza o componente de número de tentativas na tela
 		Text componenteNumTentativas = GameObject.Find( "numTentativas" ).GetComponent<Text>();
 		componenteNumTentativas.text = numTentativas + " | " + maxNumtentativas;
 
 		if ( numTentativas > maxNumtentativas )
 		{
+			// se excedeu o número máximo de tentativas, deixa o componente com a cor vermelha
 			componenteNumTentativas.color = Color.red;
 		}
 	}
 
 	void UpdateScore()
 	{
+		// atualiza o componente de score na tela
 		Text componenteScore = GameObject.Find( "scoreUI" ).GetComponent<Text>();
 		componenteScore.text = "Score: " + score;
 	}
 
 	void verificaSePalavraDescoberta()
 	{
+		// verifica se a palavra foi edscoberta
 		bool condicao = true;
 
 		for ( int i = 0; condicao && i < tamanhoPalavraOculta; i++ )
@@ -136,6 +148,7 @@ public class GameManager : MonoBehaviour
 
 		if ( condicao )
 		{
+			// se a palavra foi descoberta, envia pra tela de Game Over - Success
 			PlayerPrefs.SetString( "ultimaPalavraOculta", palavraOculta );
 			SceneManager.LoadScene( "Lab1_salvo" );
 		}
@@ -143,6 +156,7 @@ public class GameManager : MonoBehaviour
 
 	string pegaPalavraDoArquivo()
 	{
+		// pega uma palavra aleatória de um arquivo de palavras para ser carregada nesse jogo
 		TextAsset textAsset = (TextAsset)Resources.Load( "palavras", typeof( TextAsset ) );
 		string fileContent = textAsset.text;
 
