@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -81,6 +82,10 @@ public class GameManager : MonoBehaviour
 			{
 				numTentativas++;
 				UpdateNumTentativas();
+				if ( numTentativas > maxNumtentativas )
+				{
+					SceneManager.LoadScene( "Lab1_forca" );
+				}
 
 				letraTeclada = char.ToUpper( letraTeclada );
 				for ( int i = 0; i < tamanhoPalavraOculta; i++ )
@@ -106,6 +111,11 @@ public class GameManager : MonoBehaviour
 	{
 		Text componenteNumTentativas = GameObject.Find( "numTentativas" ).GetComponent<Text>();
 		componenteNumTentativas.text = numTentativas + " | " + maxNumtentativas;
+
+		if ( numTentativas > maxNumtentativas )
+		{
+			componenteNumTentativas.color = Color.red;
+		}
 	}
 
 	void UpdateScore()
