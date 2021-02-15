@@ -21,4 +21,9 @@ public class MaganeButton : MonoBehaviour
 	{
 		SceneManager.LoadScene( "Lab1" );
 	}
+
+	public void VoltaProInicioButton()
+	{
+		SceneManager.LoadScene( "Lab1_start" );
+	}
 }

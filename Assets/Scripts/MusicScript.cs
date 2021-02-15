@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class MusicScript : MonoBehaviour
 {
+	private static MusicScript instance;
+
 	// Start is called before the first frame update
 	void Awake()
 	{
-		DontDestroyOnLoad( transform.gameObject );
+		if ( instance != null )
+		{
+			Destroy( gameObject );
+		}
+		else
+		{
+			instance = this;
+			DontDestroyOnLoad( transform.gameObject );
+		}
 	}
 }
