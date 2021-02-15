@@ -15,12 +15,19 @@ public class GameManager : MonoBehaviour
 	private char[] letrasOcultas;                    // letras da palavra oculta
 	private bool[] letrasDescobertas;                // indicador de quais letras foram descobertas
 
+	private int numTentativas;
+	private int maxNumtentativas;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		centroDaTela = GameObject.Find( "centroDaTela" );
+		numTentativas = 0;
+		maxNumtentativas = 10;
+
 		InitGame();
 		InitLetras();
+		UpdateNumTentativas();
 	}
 
 	// Update is called once per frame
@@ -69,6 +76,9 @@ public class GameManager : MonoBehaviour
 
 			if ( letraTecladaComoInt >= 97 && letraTecladaComoInt <= 122 )
 			{
+				numTentativas++;
+				UpdateNumTentativas();
+
 				letraTeclada = char.ToUpper( letraTeclada );
 				for ( int i = 0; i < tamanhoPalavraOculta; i++ )
 				{
@@ -82,5 +92,11 @@ public class GameManager : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	void UpdateNumTentativas()
+	{
+		Text componenteNumTentativas = GameObject.Find( "numTentativas" ).GetComponent<Text>();
+		componenteNumTentativas.text = numTentativas + " | " + maxNumtentativas;
 	}
 }
